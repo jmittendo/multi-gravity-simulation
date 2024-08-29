@@ -15,3 +15,4 @@ std::vector<std::string> splitStringByDelimiter(const std::string& string,
 bool parseBoolString(const std::string& boolString);
 std::vector<std::filesystem::directory_entry>
 getFileEntries(const std::filesystem::path& dirPath);
+void printProgress(const size_t progress, const size_t total);

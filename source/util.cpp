@@ -3,6 +3,7 @@
 #include <chrono>
 #include <format>
 #include <sstream>
+#include <iostream>
 
 std::string getDateTimeString(const bool withUnderscores, const int offsetSeconds) {
     using namespace std::chrono;
@@ -92,4 +93,10 @@ getFileEntries(const std::filesystem::path& dirPath) {
     }
 
     return fileEntries;
+}
+
+void printProgress(const size_t progress, const size_t total) {
+    std::cout << "Progress: " << progress << "/" << total << " ("
+              << static_cast<double>(progress) / static_cast<double>(total) * 100.0
+              << " %)" << std::endl;
 }

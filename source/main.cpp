@@ -8,8 +8,6 @@
 
 #define CONFIG_PATH "../resources/config.txt"
 
-static void printProgress(const size_t progress, const size_t total);
-
 int main() {
     const Config config = Config::load(CONFIG_PATH);
 
@@ -43,10 +41,4 @@ int main() {
     }
 
     return 0;
-}
-
-static void printProgress(const size_t progress, const size_t total) {
-    std::cout << "Progress: " << progress << "/" << total << " ("
-              << static_cast<double>(progress) / static_cast<double>(total) * 100.0
-              << " %)" << std::endl;
 }
