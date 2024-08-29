@@ -229,44 +229,44 @@ static void integrate(std::vector<Vector2D>& particleAccelerations,
             particles[i].updateVelocity(particleAccelerations[i], timeStep);
         }
     } else if (integrationMethod == "rk4") {
-        std::vector<Particle> k1_particles = particles;
-        const std::vector<Vector2D> k1_accelerations
-            = calculateAccelerations(k1_particles, timeStep, false, maxVelocityStep);
+        std::vector<Particle> k1Particles = particles;
+        const std::vector<Vector2D> k1Accelerations
+            = calculateAccelerations(k1Particles, timeStep, false, maxVelocityStep);
 
-        std::vector<Particle> k2_particles = particles;
-        for (size_t i = 0; i < k2_particles.size(); i++) {
-            k2_particles[i].updatePosition(k1_particles[i].velocity, 0.5 * timeStep);
-            k2_particles[i].updateVelocity(k1_accelerations[i], 0.5 * timeStep);
+        std::vector<Particle> k2Particles = particles;
+        for (size_t i = 0; i < k2Particles.size(); i++) {
+            k2Particles[i].updatePosition(k1Particles[i].velocity, 0.5 * timeStep);
+            k2Particles[i].updateVelocity(k1Accelerations[i], 0.5 * timeStep);
         }
-        const std::vector<Vector2D> k2_accelerations
-            = calculateAccelerations(k2_particles, timeStep, false, maxVelocityStep);
+        const std::vector<Vector2D> k2Accelerations
+            = calculateAccelerations(k2Particles, timeStep, false, maxVelocityStep);
 
-        std::vector<Particle> k3_particles = particles;
-        for (size_t i = 0; i < k3_particles.size(); i++) {
-            k3_particles[i].updatePosition(k2_particles[i].velocity, 0.5 * timeStep);
-            k3_particles[i].updateVelocity(k2_accelerations[i], 0.5 * timeStep);
+        std::vector<Particle> k3Particles = particles;
+        for (size_t i = 0; i < k3Particles.size(); i++) {
+            k3Particles[i].updatePosition(k2Particles[i].velocity, 0.5 * timeStep);
+            k3Particles[i].updateVelocity(k2Accelerations[i], 0.5 * timeStep);
         }
-        const std::vector<Vector2D> k3_accelerations
-            = calculateAccelerations(k3_particles, timeStep, false, maxVelocityStep);
+        const std::vector<Vector2D> k3Accelerations
+            = calculateAccelerations(k3Particles, timeStep, false, maxVelocityStep);
 
-        std::vector<Particle> k4_particles = particles;
-        for (size_t i = 0; i < k4_particles.size(); i++) {
-            k4_particles[i].updatePosition(k3_particles[i].velocity, timeStep);
-            k4_particles[i].updateVelocity(k3_accelerations[i], timeStep);
+        std::vector<Particle> k4Particles = particles;
+        for (size_t i = 0; i < k4Particles.size(); i++) {
+            k4Particles[i].updatePosition(k3Particles[i].velocity, timeStep);
+            k4Particles[i].updateVelocity(k3Accelerations[i], timeStep);
         }
-        const std::vector<Vector2D> k4_accelerations
-            = calculateAccelerations(k4_particles, timeStep, false, maxVelocityStep);
+        const std::vector<Vector2D> k4Accelerations
+            = calculateAccelerations(k4Particles, timeStep, false, maxVelocityStep);
 
         for (size_t i = 0; i < particles.size(); i++) {
             particles[i].updatePosition(
-                (k1_particles[i].velocity + 2.0 * k2_particles[i].velocity
-                 + 2.0 * k3_particles[i].velocity + k4_particles[i].velocity)
+                (k1Particles[i].velocity + 2.0 * k2Particles[i].velocity
+                 + 2.0 * k3Particles[i].velocity + k4Particles[i].velocity)
                     / 6.0,
                 timeStep);
 
-            particles[i].updateVelocity((k1_accelerations[i] + 2.0 * k2_accelerations[i]
-                                         + 2.0 * k3_accelerations[i]
-                                         + k4_accelerations[i])
+            particles[i].updateVelocity((k1Accelerations[i] + 2.0 * k2Accelerations[i]
+                                         + 2.0 * k3Accelerations[i]
+                                         + k4Accelerations[i])
                                             / 6.0,
                                         timeStep);
         }
