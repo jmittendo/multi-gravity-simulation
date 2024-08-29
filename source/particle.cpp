@@ -2,7 +2,7 @@
 
 Particle::Particle(const double mass, const Vector2D& position,
                    const Vector2D& velocity,
-                   const std::shared_ptr<UnitSystem> unitSystem)
+                   const std::shared_ptr<const UnitSystem> unitSystem)
     : mass(mass)
     , position(position)
     , velocity(velocity)

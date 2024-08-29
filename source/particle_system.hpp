@@ -10,7 +10,7 @@
 class ParticleSystem {
     public:
         ParticleSystem(const std::filesystem::path& inputFilePath,
-                       const std::shared_ptr<UnitSystem> simulationUnitSystem);
+                       const std::shared_ptr<const UnitSystem> simulationUnitSystem);
 
         void simulate(const double fixedTimeStep,
                       const std::filesystem::path& outputDirPath,

@@ -23,8 +23,8 @@ int main() {
         dir_entries.push_back(dir_entry);
     }
 
-    const std::shared_ptr<UnitSystem> sharedUnitSystem
-        = std::make_shared<UnitSystem>(config.unitSystem);
+    const std::shared_ptr<const UnitSystem> sharedUnitSystem
+        = std::make_shared<const UnitSystem>(config.unitSystem);
     int progress = 0;
 
 #pragma omp parallel for

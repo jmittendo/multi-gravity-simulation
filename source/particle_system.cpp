@@ -25,8 +25,9 @@ static void integrate(std::vector<Vector2D>& particleAccelerations,
                       const std::string& integrationMethod,
                       const bool enableAdaptiveTimeStep, const double maxVelocityStep);
 
-ParticleSystem::ParticleSystem(const std::filesystem::path& inputFilePath,
-                               const std::shared_ptr<UnitSystem> simulationUnitSystem)
+ParticleSystem::ParticleSystem(
+    const std::filesystem::path& inputFilePath,
+    const std::shared_ptr<const UnitSystem> simulationUnitSystem)
     : inputFileStem(inputFilePath.stem().string()) {
     std::string line;
     std::ifstream inputFile = loadTextFile(inputFilePath);

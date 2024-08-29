@@ -12,7 +12,7 @@ class Particle {
         Vector2D velocity;
 
         Particle(const double mass, const Vector2D& position, const Vector2D& velocity,
-                 const std::shared_ptr<UnitSystem> unitSystem);
+                 const std::shared_ptr<const UnitSystem> unitSystem);
 
         double getKineticEnergy() const;
         double getPotentialEnergy(const Particle& particle) const;
@@ -21,5 +21,5 @@ class Particle {
         void updateVelocity(const Vector2D& acceleration, const double timeStep);
 
     private:
-        const std::shared_ptr<UnitSystem> unitSystem;
+        const std::shared_ptr<const UnitSystem> unitSystem;
 };
