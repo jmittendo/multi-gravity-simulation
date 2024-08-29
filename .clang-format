@@ -1,0 +1,12 @@
+﻿BasedOnStyle: WebKit
+ColumnLimit: 88
+BreakBeforeBraces: Attach
+SortIncludes: false
+AlignAfterOpenBracket: true
+InsertNewlineAtEOF: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: WithoutElse
+IndentCaseLabels: true
+IndentAccessModifiers: true
+NamespaceIndentation: All
