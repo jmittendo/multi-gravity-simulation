@@ -3,6 +3,7 @@
 #include "util.hpp"
 
 #include <fstream>
+#include <memory>
 
 #define INPUT_FILE_DELIMITER ' '
 #define INPUT_FILE_MASS_INDEX 0
@@ -25,7 +26,7 @@ static void integrate(std::vector<Vector2D>& particleAccelerations,
                       const bool enableAdaptiveTimeStep, const double maxVelocityStep);
 
 ParticleSystem::ParticleSystem(const std::filesystem::path& inputFilePath,
-                               const UnitSystem& simulationUnitSystem)
+                               const std::shared_ptr<UnitSystem> simulationUnitSystem)
     : inputFileStem(inputFilePath.stem().string()) {
     std::string line;
     std::ifstream inputFile = loadTextFile(inputFilePath);
@@ -39,15 +40,15 @@ ParticleSystem::ParticleSystem(const std::filesystem::path& inputFilePath,
         const std::vector<std::string> lineSegments
             = splitStringByDelimiter(line, INPUT_FILE_DELIMITER);
 
-        const double mass = simulationUnitSystem.convertMass(
+        const double mass = simulationUnitSystem->convertMass(
             stod(lineSegments[INPUT_FILE_MASS_INDEX]), fileUnitSystem);
-        const double positionX = simulationUnitSystem.convertLength(
+        const double positionX = simulationUnitSystem->convertLength(
             stod(lineSegments[INPUT_FILE_POSITION_X_INDEX]), fileUnitSystem);
-        const double positionY = simulationUnitSystem.convertLength(
+        const double positionY = simulationUnitSystem->convertLength(
             stod(lineSegments[INPUT_FILE_POSITION_Y_INDEX]), fileUnitSystem);
-        const double velocityX = simulationUnitSystem.convertVelocity(
+        const double velocityX = simulationUnitSystem->convertVelocity(
             stod(lineSegments[INPUT_FILE_VELOCITY_X_INDEX]), fileUnitSystem);
-        const double velocityY = simulationUnitSystem.convertVelocity(
+        const double velocityY = simulationUnitSystem->convertVelocity(
             stod(lineSegments[INPUT_FILE_VELOCITY_Y_INDEX]), fileUnitSystem);
 
         particles.push_back(Particle(mass, Vector2D(positionX, positionY),

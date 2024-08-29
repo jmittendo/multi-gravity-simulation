@@ -5,6 +5,7 @@
 #include <omp.h>
 #include <iostream>
 #include <filesystem>
+#include <memory>
 
 #define CONFIG_PATH "../resources/config.txt"
 
@@ -22,13 +23,15 @@ int main() {
         dir_entries.push_back(dir_entry);
     }
 
+    const std::shared_ptr<UnitSystem> sharedUnitSystem
+        = std::make_shared<UnitSystem>(config.unitSystem);
     int progress = 0;
 
 #pragma omp parallel for
     for (const auto& dir_entry : dir_entries) {
         if (dir_entry.is_directory()) continue;
 
-        ParticleSystem particleSystem(dir_entry.path(), config.unitSystem);
+        ParticleSystem particleSystem(dir_entry.path(), sharedUnitSystem);
 
         particleSystem.simulate(config.fixedTimeStep, config.outputDirPath,
                                 config.enableAdaptiveTimeStep, config.maxVelocityStep,
