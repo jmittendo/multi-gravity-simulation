@@ -2,7 +2,6 @@
 #include "util.hpp"
 #include "particle_system.hpp"
 
-#include <omp.h>
 #include <iostream>
 #include <filesystem>
 #include <memory>
@@ -27,7 +26,9 @@ int main() {
         = std::make_shared<const UnitSystem>(config.unitSystem);
     int progress = 0;
 
-#pragma omp parallel for
+#ifdef _OPENMP
+    #pragma omp parallel for
+#endif
     for (const auto& dir_entry : dir_entries) {
         if (dir_entry.is_directory()) continue;
 
@@ -38,7 +39,9 @@ int main() {
                                 config.maxTime, config.maxIterations,
                                 config.writeStatePeriod, config.integrationMethod);
 
-#pragma omp critical
+#ifdef _OPENMP
+    #pragma omp critical
+#endif
         {
             progress++;
 

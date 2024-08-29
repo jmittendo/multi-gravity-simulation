@@ -10,3 +10,4 @@ AllowShortIfStatementsOnASingleLine: WithoutElse
 IndentCaseLabels: true
 IndentAccessModifiers: true
 NamespaceIndentation: All
+IndentPPDirectives: BeforeHash

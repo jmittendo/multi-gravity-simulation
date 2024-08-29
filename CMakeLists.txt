@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(GravitySimulation CXX)
 
-find_package(OpenMP REQUIRED)
+find_package(OpenMP)
 
 add_executable(gravity-simulation
     source/config.cpp
@@ -25,4 +25,9 @@ target_compile_options(gravity-simulation PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra -Wpedantic -Werror>
     $<$<CONFIG:Release>:-O3 -march=native>
 )
-target_link_libraries(gravity-simulation PRIVATE OpenMP::OpenMP_CXX)
+
+if(OpenMP_FOUND)
+    target_link_libraries(gravity-simulation PRIVATE OpenMP::OpenMP_CXX)
+else()
+    message(WARNING "OpenMP not found, continuing without it...")
+endif()
