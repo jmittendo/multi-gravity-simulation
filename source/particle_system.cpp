@@ -1,10 +1,8 @@
 #include "particle_system.hpp"
 
 #include "util.hpp"
-#include "unit_system.hpp"
-#include "constants.hpp"
 
-#include <sstream>
+#include <fstream>
 
 #define INPUT_FILE_DELIMITER ' '
 #define INPUT_FILE_MASS_INDEX 0

@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <format>
+#include <sstream>
 
 std::string getDateTimeString(const bool withUnderscores, const int offsetSeconds) {
     using namespace std::chrono;

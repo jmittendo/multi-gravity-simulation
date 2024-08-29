@@ -1,11 +1,8 @@
 #include "config.hpp"
-#include "util.hpp"
-#include "constants.hpp"
 
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <iostream>
+#include "util.hpp"
+
+#include <map>
 
 static std::map<std::string, std::string>
 getConfigMap(const std::filesystem::path& configPath);

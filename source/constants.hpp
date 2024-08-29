@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <map>
 
 namespace Constants {
     // Physical constants and measurements in SI units

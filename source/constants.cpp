@@ -1,6 +1,6 @@
 #include "constants.hpp"
 
-#include <iostream>
+#include <map>
 
 namespace Constants {
     static const std::map<const std::string, const double> nameToConstantMap
