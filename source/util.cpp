@@ -1,6 +1,7 @@
 #include "util.hpp"
 
 #include <chrono>
+#include <format>
 
 std::string getDateTimeString(const bool withUnderscores, const int offsetSeconds) {
     using namespace std::chrono;
@@ -67,4 +68,14 @@ std::vector<std::string> splitStringByDelimiter(const std::string& string,
     if (!components.size()) components.push_back("");
 
     return components;
+}
+
+bool parseBoolString(const std::string& boolString) {
+    if (boolString == "true")
+        return true;
+    else if (boolString == "false")
+        return false;
+    else
+        throw std::invalid_argument(
+            std::format("'{}' is not a valid bool string", boolString));
 }

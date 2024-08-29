@@ -9,7 +9,6 @@
 
 static std::map<std::string, std::string>
 getConfigMap(const std::filesystem::path& configPath);
-static bool processBoolString(const std::string& boolString);
 
 Config::Config(const UnitSystem& unitSystem, const std::filesystem::path& outputDirPath,
                const std::filesystem::path& inputFilesDirPath,
@@ -38,7 +37,7 @@ Config Config::load(const std::filesystem::path& configPath) {
     const double fixedTimeStep = stod(configMap.at("fixedTimeStep"));
     const double maxVelocityStep = stod(configMap.at("maxVelocityStep"));
     const bool enableAdaptiveTimeStep
-        = processBoolString(configMap.at("enableAdaptiveTimeStep"));
+        = parseBoolString(configMap.at("enableAdaptiveTimeStep"));
     const double maxTime = stod(configMap.at("maxTime"));
     const double maxIterations = stoul(configMap.at("maxIterations"));
     const double writeStatePeriod = stod(configMap.at("writeStatePeriod"));
@@ -69,13 +68,4 @@ getConfigMap(const std::filesystem::path& configPath) {
     }
 
     return configMap;
-}
-
-static bool processBoolString(const std::string& boolString) {
-    if (boolString == "true")
-        return true;
-    else if (boolString == "false")
-        return false;
-    else
-        throw std::runtime_error("'" + boolString + "' is not a valid bool string.");
 }
