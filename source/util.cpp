@@ -80,3 +80,16 @@ bool parseBoolString(const std::string& boolString) {
         throw std::invalid_argument(
             std::format("'{}' is not a valid bool string", boolString));
 }
+
+std::vector<std::filesystem::directory_entry>
+getFileEntries(const std::filesystem::path& dirPath) {
+    const std::filesystem::directory_iterator dirIterator(dirPath);
+
+    std::vector<std::filesystem::directory_entry> fileEntries;
+
+    for (const auto& dirEntry : dirIterator) {
+        if (dirEntry.is_regular_file()) fileEntries.push_back(dirEntry);
+    }
+
+    return fileEntries;
+}

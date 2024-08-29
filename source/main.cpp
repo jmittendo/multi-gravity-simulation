@@ -8,31 +8,25 @@
 
 #define CONFIG_PATH "../resources/config.txt"
 
+static void printProgress(const size_t progress, const size_t total);
+
 int main() {
     const Config config = Config::load(CONFIG_PATH);
 
     std::cout << "Simulations started at: " << getDateTimeString(false, 0) << std::endl;
     std::cout << "Output directory: " << config.outputDirPath << '\n' << std::endl;
 
-    const std::filesystem::directory_iterator dir_iterator(config.inputFilesDirPath);
-
-    std::vector<std::filesystem::directory_entry> dir_entries;
-
-    for (const auto& dir_entry : dir_iterator) {
-        dir_entries.push_back(dir_entry);
-    }
-
+    const auto inputFileEntries = getFileEntries(config.inputFilesDirPath);
+    const size_t inputFileCount = inputFileEntries.size();
     const std::shared_ptr<const UnitSystem> sharedUnitSystem
         = std::make_shared<const UnitSystem>(config.unitSystem);
-    int progress = 0;
+    size_t progress = 0;
 
 #ifdef _OPENMP
     #pragma omp parallel for
 #endif
-    for (const auto& dir_entry : dir_entries) {
-        if (dir_entry.is_directory()) continue;
-
-        ParticleSystem particleSystem(dir_entry.path(), sharedUnitSystem);
+    for (const auto& fileEntry : inputFileEntries) {
+        ParticleSystem particleSystem(fileEntry.path(), sharedUnitSystem);
 
         particleSystem.simulate(config.fixedTimeStep, config.outputDirPath,
                                 config.enableAdaptiveTimeStep, config.maxVelocityStep,
@@ -44,13 +38,15 @@ int main() {
 #endif
         {
             progress++;
-
-            std::cout << "Progress: " << progress << "/" << dir_entries.size() << " ("
-                      << static_cast<double>(progress)
-                    / static_cast<double>(dir_entries.size()) * 100.0
-                      << " %)" << std::endl;
+            printProgress(progress, inputFileCount);
         }
     }
 
     return 0;
+}
+
+static void printProgress(const size_t progress, const size_t total) {
+    std::cout << "Progress: " << progress << "/" << total << " ("
+              << static_cast<double>(progress) / static_cast<double>(total) * 100.0
+              << " %)" << std::endl;
 }

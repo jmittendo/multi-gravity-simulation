@@ -13,3 +13,5 @@ time_t getCurrentTimeSeconds();
 std::vector<std::string> splitStringByDelimiter(const std::string& string,
                                                 const char delimiter);
 bool parseBoolString(const std::string& boolString);
+std::vector<std::filesystem::directory_entry>
+getFileEntries(const std::filesystem::path& dirPath);
