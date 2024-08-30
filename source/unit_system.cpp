@@ -1,31 +1,31 @@
 #include "unit_system.hpp"
 
 #include "constants.hpp"
+#include "error_dict.hpp"
 
-#include <map>
 #include <vector>
 #include <cmath>
 
 using namespace Constants;
 
-static const std::map<const std::string, const std::vector<double>>
-    systemIdToLengthMassTimeUnitsMap
-    = { { "si", { 1.0, 1.0, 1.0 } },
-        { "cgs", { 0.01, 0.001, 1.0 } },
-        { "solsys", { au, massSun, year } },
-        { "galactic", { 1000.0 * parsec, 1E10 * massSun, 1E9 * year } },
-        { "earthmoon", { 3.844E8 * meter, massEarth, day } },
-        { "fff", { 201.168, 40.8233133, 1.2096E6 } },
-        { "G1", { au, massSun, sqrt(au* au* au / massSun / gravityConstant) } } };
+static const ErrorDict<std::vector<double>> unitSystemIdToLengthMassTimeUnitsMap
+    = { "unitSystemIdToLengthMassTimeUnitsMap",
+        { { "si", { 1.0, 1.0, 1.0 } },
+          { "cgs", { 0.01, 0.001, 1.0 } },
+          { "solsys", { au, massSun, year } },
+          { "galactic", { 1000.0 * parsec, 1E10 * massSun, 1E9 * year } },
+          { "earthmoon", { 3.844E8 * meter, massEarth, day } },
+          { "fff", { 201.168, 40.8233133, 1.2096E6 } },
+          { "G1", { au, massSun, sqrt(au* au* au / massSun / gravityConstant) } } } };
 
 static double convertUnits(const double inputValue, const double inputUnits,
                            const double outputUnits);
 
 UnitSystem::UnitSystem(const std::string& id)
     : id(id)
-    , unitLength(systemIdToLengthMassTimeUnitsMap.at(id)[0])
-    , unitMass(systemIdToLengthMassTimeUnitsMap.at(id)[1])
-    , unitTime(systemIdToLengthMassTimeUnitsMap.at(id)[2])
+    , unitLength(unitSystemIdToLengthMassTimeUnitsMap.at(id)[0])
+    , unitMass(unitSystemIdToLengthMassTimeUnitsMap.at(id)[1])
+    , unitTime(unitSystemIdToLengthMassTimeUnitsMap.at(id)[2])
     , unitVelocity(unitLength / unitTime)
     , gravityConstant(
           Constants::gravityConstant

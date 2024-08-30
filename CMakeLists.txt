@@ -7,6 +7,7 @@ find_package(OpenMP)
 add_executable(gravity-simulation
     source/config.cpp
     source/constants.cpp
+    source/error_dict.cpp
     source/main.cpp
     source/particle_system.cpp
     source/particle.cpp

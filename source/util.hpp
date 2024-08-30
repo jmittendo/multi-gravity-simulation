@@ -12,7 +12,6 @@ int findVariableIndex(const std::string& variableName,
 time_t getCurrentTimeSeconds();
 std::vector<std::string> splitStringByDelimiter(const std::string& string,
                                                 const char delimiter);
-bool parseBoolString(const std::string& boolString);
 std::vector<std::filesystem::directory_entry>
 getFileEntries(const std::filesystem::path& dirPath);
 void printProgress(const size_t progress, const size_t total);

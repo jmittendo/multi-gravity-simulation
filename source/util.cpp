@@ -33,9 +33,9 @@ std::string getDateTimeString(const bool withUnderscores, const int offsetSecond
 std::ifstream loadTextFile(const std::filesystem::path& filePath) {
     std::ifstream file(filePath);
 
-    if (!file.good())
-        throw std::runtime_error("Could not find or access file: '" + filePath.string()
-                                 + "'.");
+    if (!file)
+        throw std::ifstream::failure(
+            format("Could not find or read file: '{}'", filePath.string()));
 
     return file;
 }
@@ -70,16 +70,6 @@ std::vector<std::string> splitStringByDelimiter(const std::string& string,
     if (!components.size()) components.push_back("");
 
     return components;
-}
-
-bool parseBoolString(const std::string& boolString) {
-    if (boolString == "true")
-        return true;
-    else if (boolString == "false")
-        return false;
-    else
-        throw std::invalid_argument(
-            std::format("'{}' is not a valid bool string", boolString));
 }
 
 std::vector<std::filesystem::directory_entry>
