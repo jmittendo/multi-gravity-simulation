@@ -22,9 +22,10 @@ double Particle::getPotentialEnergy(const Particle& particle) const {
 
 Vector2D Particle::getGravityAccelerationFactor(const Particle& particle) const {
     const Vector2D distance = position - particle.position;
+    const double absDistance = distance.abs();
 
-    return -unitSystem->gravityConstant
-        / (distance.abs() * distance.abs() * distance.abs()) * distance;
+    return -unitSystem->gravityConstant / (absDistance * absDistance * absDistance)
+        * distance;
 }
 
 void Particle::updatePosition(const Vector2D& velocity, const double timeStep) {
