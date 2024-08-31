@@ -87,7 +87,7 @@ std::ofstream createOutputFile(const std::filesystem::path& outputFilePath) {
 
     if (!outputFile)
         throw std::runtime_error(
-            format("Could not create output file: '{}'" + outputFilePath.string()));
+            format("Could not create output file: '{}'", outputFilePath.string()));
 
     return outputFile;
 }
