@@ -16,8 +16,8 @@
 static std::vector<Vector2D>
 calculateAccelerations(const std::vector<Particle>& particles, double& timeStep,
                        const bool enableAdaptiveTimeStep, const double maxVelocityStep);
-static void writeData(std::ofstream& outputFile, const double currentTime,
-                      const std::vector<Particle>& particles);
+static void writeState(std::ofstream& outputFile, const double currentTime,
+                       const std::vector<Particle>& particles);
 static std::string getMassPosVelString(const std::vector<Particle>& particles);
 static double getSystemEnergy(const std::vector<Particle>& particles);
 static void integrate(std::vector<Vector2D>& particleAccelerations,
@@ -80,8 +80,7 @@ void ParticleSystem::simulate(const double fixedTimeStep,
         iterationCounter++;
 
         if (currentTime >= static_cast<double>(writeStateCounter) * writeStatePeriod) {
-            writeData(outputFile, currentTime, particles);
-
+            writeState(outputFile, currentTime, particles);
             writeStateCounter++;
         }
 
@@ -89,7 +88,7 @@ void ParticleSystem::simulate(const double fixedTimeStep,
                   enableAdaptiveTimeStep, maxVelocityStep);
 
         if (maxIterations > 0 && iterationCounter > maxIterations) {
-            writeData(outputFile, -1.0, particles);
+            writeState(outputFile, -1.0, particles);
 
             goto simulationEnd;
         }
@@ -133,8 +132,8 @@ calculateAccelerations(const std::vector<Particle>& particles, double& timeStep,
     return particleAccelerations;
 }
 
-static void writeData(std::ofstream& outputFile, const double currentTime,
-                      const std::vector<Particle>& particles) {
+static void writeState(std::ofstream& outputFile, const double currentTime,
+                       const std::vector<Particle>& particles) {
     outputFile << currentTime << ", " << getMassPosVelString(particles) << ", "
                << getSystemEnergy(particles) << std::endl;
 }
