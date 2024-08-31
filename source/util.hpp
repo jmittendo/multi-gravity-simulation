@@ -13,3 +13,4 @@ std::vector<std::string> splitStringByDelimiter(const std::string& string,
 std::vector<std::filesystem::directory_entry>
 getFileEntries(const std::filesystem::path& dirPath);
 void printProgress(const size_t progress, const size_t total);
+std::ofstream createOutputFile(const std::filesystem::path& outputFilePath);

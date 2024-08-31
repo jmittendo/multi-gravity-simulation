@@ -11,8 +11,8 @@
 #define INPUT_FILE_POSITION_Y_INDEX 2
 #define INPUT_FILE_VELOCITY_X_INDEX 3
 #define INPUT_FILE_VELOCITY_Y_INDEX 4
+#define OUTPUT_FILE_SUFFIX "_output.txt"
 
-static std::ofstream createOutputFile(const std::filesystem::path& outputFilePath);
 static std::vector<Vector2D>
 calculateAccelerations(const std::vector<Particle>& particles, double& timeStep,
                        const bool enableAdaptiveTimeStep, const double maxVelocityStep);
@@ -34,7 +34,6 @@ ParticleSystem::ParticleSystem(
 
     // The first line must contain a valid unit system id
     std::getline(inputFile, line);
-
     const UnitSystem fileUnitSystem(line);
 
     while (std::getline(inputFile, line)) {
@@ -72,7 +71,7 @@ void ParticleSystem::simulate(const double fixedTimeStep,
     unsigned long iterationCounter = 0;
 
     std::ofstream outputFile
-        = createOutputFile(outputDirPath / (inputFileStem + "_output.txt"));
+        = createOutputFile(outputDirPath / (inputFileStem + OUTPUT_FILE_SUFFIX));
 
     std::vector<Vector2D> particleAccelerations = calculateAccelerations(
         particles, timeStep, enableAdaptiveTimeStep, maxVelocityStep);
@@ -100,18 +99,6 @@ void ParticleSystem::simulate(const double fixedTimeStep,
 
 simulationEnd:
     outputFile.close();
-}
-
-static std::ofstream createOutputFile(const std::filesystem::path& outputFilePath) {
-    std::filesystem::create_directories(outputFilePath.parent_path());
-
-    std::ofstream outputFile(outputFilePath);
-
-    if (!outputFile.good())
-        throw std::runtime_error("Could not create output file: '"
-                                 + outputFilePath.string() + "'.");
-
-    return outputFile;
 }
 
 static std::vector<Vector2D>

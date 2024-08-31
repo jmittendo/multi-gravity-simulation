@@ -79,3 +79,15 @@ void printProgress(const size_t progress, const size_t total) {
               << static_cast<double>(progress) / static_cast<double>(total) * 100.0
               << " %)" << std::endl;
 }
+
+std::ofstream createOutputFile(const std::filesystem::path& outputFilePath) {
+    std::filesystem::create_directories(outputFilePath.parent_path());
+
+    std::ofstream outputFile(outputFilePath);
+
+    if (!outputFile)
+        throw std::runtime_error(
+            format("Could not create output file: '{}'" + outputFilePath.string()));
+
+    return outputFile;
+}
