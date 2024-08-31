@@ -32,6 +32,26 @@ double Vector2D::dotProduct(const Vector2D& v) const {
     return x * v.x + y * v.y;
 }
 
+Vector2D Vector2D::operator+(const Vector2D& v) const {
+    return add(v);
+}
+
+Vector2D Vector2D::operator-(const Vector2D& v) const {
+    return add(v * (-1.0));
+}
+
+double Vector2D::operator*(const Vector2D& v) const {
+    return dotProduct(v);
+}
+
+Vector2D Vector2D::operator*(const double n) const {
+    return scalarProduct(n);
+}
+
+Vector2D Vector2D::operator/(const double n) const {
+    return scalarProduct(1.0 / n);
+}
+
 double Vector2D::operator[](const int i) const {
     if (i == 0)
         return x;
@@ -41,32 +61,8 @@ double Vector2D::operator[](const int i) const {
         throw std::invalid_argument("Index " + std::to_string(i) + " out of range");
 }
 
-Vector2D operator+(const Vector2D& v1, const Vector2D& v2) {
-    return v1.add(v2);
-}
-
-Vector2D operator-(const Vector2D& v1, const Vector2D& v2) {
-    return v1.add(-v2);
-}
-
-Vector2D operator-(const Vector2D& v) {
-    return v.scalarProduct(-1.0);
-}
-
-double operator*(const Vector2D& v1, const Vector2D& v2) {
-    return v1.dotProduct(v2);
-}
-
-Vector2D operator*(const Vector2D& v, const double n) {
-    return v.scalarProduct(n);
-}
-
 Vector2D operator*(const double n, const Vector2D& v) {
     return v.scalarProduct(n);
-}
-
-Vector2D operator/(const Vector2D& v, const double n) {
-    return v.scalarProduct(1.0 / n);
 }
 
 std::ostream& operator<<(std::ostream& stream, const Vector2D& v) {
