@@ -40,17 +40,6 @@ std::ifstream loadTextFile(const std::filesystem::path& filePath) {
     return file;
 }
 
-int findVariableIndex(const std::string& variableName,
-                      const std::vector<std::string>& inputFileFormat) {
-    const auto iterator
-        = find(inputFileFormat.begin(), inputFileFormat.end(), variableName);
-
-    if (iterator != inputFileFormat.end())
-        return distance(inputFileFormat.begin(), iterator);
-    else
-        return -1;
-}
-
 time_t getCurrentTimeSeconds() {
     using namespace std::chrono;
 
