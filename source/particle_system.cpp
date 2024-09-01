@@ -77,8 +77,6 @@ void ParticleSystem::simulate(const double fixedTimeStep,
         particles, timeStep, enableAdaptiveTimeStep, maxVelocityStep);
 
     while (currentTime <= maxTime) {
-        iterationCounter++;
-
         if (currentTime >= static_cast<double>(writeStateCounter) * writeStatePeriod) {
             writeState(outputFile, currentTime, particles);
             writeStateCounter++;
@@ -87,17 +85,15 @@ void ParticleSystem::simulate(const double fixedTimeStep,
         integrate(particleAccelerations, particles, timeStep, integrationMethod,
                   enableAdaptiveTimeStep, maxVelocityStep);
 
-        if (maxIterations > 0 && iterationCounter > maxIterations) {
+        currentTime += timeStep;
+        iterationCounter++;
+
+        if (maxIterations > 0 && iterationCounter == maxIterations) {
             writeState(outputFile, -1.0, particles);
 
-            goto simulationEnd;
+            break;
         }
-
-        currentTime += timeStep;
     }
-
-simulationEnd:
-    outputFile.close();
 }
 
 static std::vector<Vector2D>
