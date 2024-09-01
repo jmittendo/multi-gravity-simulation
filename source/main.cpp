@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <memory>
 
-#define CONFIG_PATH "../resources/config.txt"
+#define CONFIG_PATH "../config.txt"
 
 int main() {
     const Config config = Config::load(CONFIG_PATH);
