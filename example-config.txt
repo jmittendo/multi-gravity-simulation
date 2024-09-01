@@ -1,0 +1,29 @@
+// Unit system used for the simulation:
+unitSystem              solsys
+
+// Path to the output directory:
+outputDir               ../output/simulations/3body-fractal/
+
+// Path to the directory containing the input files:
+inputFilesDir           ../input/3body-fractal/
+
+// Maximum simulation time (in simulation units):
+maxTime                 800.0
+
+// Maximum iterations (set to 0 or less if no maximum desired):
+maxIterations           200000000
+
+// Fixed simulation time step (in simulation units; ignored if enableAdaptiveTimeStep is set to true):
+fixedTimeStep           0.01
+
+// Activate/deactivate adaptive time step (true or false):
+enableAdaptiveTimeStep  true
+
+// Maximum velocity step for adaptive time step (in simulation units):
+maxVelocityStep         1.0
+
+// Integration method used for time integration:
+integrationMethod       rk4
+
+// Time period for writing the current state into the output file (in simulation units):
+writeStatePeriod        0.5
