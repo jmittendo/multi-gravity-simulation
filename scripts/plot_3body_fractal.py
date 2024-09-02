@@ -7,8 +7,8 @@ from tqdm import tqdm
 
 # Parameters
 PLOT_FILE_PATH = "output/plots/3body-fractal.png"
-IMPACT_STEPS = 101
-PHASE_STEPS = 101
+IMPACT_STEPS = 301
+PHASE_STEPS = 301
 IMPACT_RANGE = (-4.5, 7.5)
 PHASE_RANGE = (0, np.pi)
 

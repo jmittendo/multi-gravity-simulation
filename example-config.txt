@@ -1,4 +1,5 @@
-// Unit system used for the simulation:
+// Unit system used for the simulation
+// (si, cgs, solsys, galactic, earthmoon, fff, G1; see README):
 unitSystem              solsys
 
 // Path to the output directory:
@@ -13,7 +14,8 @@ maxTime                 800.0
 // Maximum iterations (set to 0 or less if no maximum desired):
 maxIterations           200000000
 
-// Fixed simulation time step (in simulation units; ignored if enableAdaptiveTimeStep is set to true):
+// Fixed simulation time step
+// (in simulation units; ignored if enableAdaptiveTimeStep is set to true):
 fixedTimeStep           0.01
 
 // Activate/deactivate adaptive time step (true or false):
@@ -22,7 +24,7 @@ enableAdaptiveTimeStep  true
 // Maximum velocity step for adaptive time step (in simulation units):
 maxVelocityStep         1.0
 
-// Integration method used for time integration:
+// Integration method used for time integration (kdk, dkd, euler, rk4; see README):
 integrationMethod       rk4
 
 // Time period for writing the current state into the output file (in simulation units):

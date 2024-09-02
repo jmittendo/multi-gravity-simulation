@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.21)
 
 project(GravitySimulation CXX)
 
@@ -31,4 +31,11 @@ if(OpenMP_FOUND)
     target_link_libraries(gravity-simulation PRIVATE OpenMP::OpenMP_CXX)
 else()
     message(WARNING "OpenMP not found, continuing without it...")
+endif()
+
+set(CONFIG_SOURCE_PATH example-config.txt)
+set(CONFIG_DESTINATION_PATH config.txt)
+
+if(NOT EXISTS ${CONFIG_DESTINATION_PATH})
+    file(COPY_FILE ${CONFIG_SOURCE_PATH} ${CONFIG_DESTINATION_PATH})
 endif()
