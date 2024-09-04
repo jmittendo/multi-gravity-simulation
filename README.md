@@ -1,11 +1,11 @@
 multi-gravity-simulation
 ========================
 
-A tool for simulating multiple gravitational particle systems in parallel using
-[OpenMP](https://www.openmp.org/), written in C++. Each system is initialized from an
-[input file](#input-file-format) containing the particle's masses, initial positions and
-velocities and produces a corresponding [output file](#output-file-format) containing
-the particle states at different points in time.
+A tool for simulating multiple 2-dimensional gravitational particle systems in parallel
+using [OpenMP](https://www.openmp.org/), written in C++. Each system is initialized from
+an [input file](#input-file-format) containing the particle's masses, initial positions
+and velocities and produces a corresponding [output file](#output-file-format)
+containing the particle states at different points in time.
 
 1. [Example: 3-Body Fractal](#example-3-body-fractal)
 2. [Installation](#installation)
